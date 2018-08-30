@@ -10,6 +10,9 @@ namespace GraphAlgorithms
         {
             // Dijkstra
             Dijkstra.Dijkstra.Test();
+
+            // PackageWrap_JarvisMarch
+            PackageWrap_JarvisMarch.PackageWrap.Test();
         }
     }
 }

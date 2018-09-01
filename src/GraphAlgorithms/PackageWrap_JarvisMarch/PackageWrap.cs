@@ -7,6 +7,9 @@ using LitMath;
 
 namespace GraphAlgorithms.PackageWrap_JarvisMarch
 {
+    /// <summary>
+    /// 求点集合的最小外包凸多边形
+    /// </summary>
     public partial class PackageWrap
     {
         public static List<Vector2> Do(List<Vector2> pnts)
@@ -15,13 +18,14 @@ namespace GraphAlgorithms.PackageWrap_JarvisMarch
             List<Vector2> polygon = new List<Vector2>();
             List<int> indexsPolygon = new List<int>();
 
-            // 找出最左下方的点
+            // 找出最下方的点
             Vector2 pntLeftDown = pnts[0];
             int index = 0;
             for (int i = 1; i < count; ++i)
             {
-                if (pnts[i].x <= pntLeftDown.x
-                    && pnts[i].y <= pntLeftDown.y)
+                if (pnts[i].y < pntLeftDown.y
+                    || (pnts[i].y == pntLeftDown.y
+                       && pnts[i].x < pntLeftDown.x))
                 {
                     index = i;
                     pntLeftDown = pnts[i];
@@ -29,7 +33,6 @@ namespace GraphAlgorithms.PackageWrap_JarvisMarch
             }
             indexsPolygon.Add(index);
 
-            // 
             int indexPre = -1;
             Vector2 vBase = new Vector2();
             while (true)
@@ -45,7 +48,7 @@ namespace GraphAlgorithms.PackageWrap_JarvisMarch
                     {
                         continue;
                     }
-                    
+
                     angleTemp = Vector2.SignedAngleInRadian(
                         vBase, pnts[i] - pnts[index]);
                     if (angleTemp < 0)
